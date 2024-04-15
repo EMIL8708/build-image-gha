@@ -1,28 +1,11 @@
-name: Docker Image CI
+FROM alpine
 
-on:
-    push:
-        branches: [ "main" ]
+RUN apk add wget
 
-jobs:
+RUN apk add unzip
 
-    runs on: ubuntu-latest
+RUN wget wget -O- https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0_linux_arm64.zip
 
-    steps:
-    - uses: actions/checkout@v3
+RUN pwd
 
-    #- name: Build the Docker Image
-    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-
-    - name: Log in to Docker Hub - Main web app container registry
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKERUSERNAME }}
-        password: ${{ secrets.DOCKERPASSWORD }}
-
-    - name: Build and push Main web app container image to registry
-      uses: docker/build-push-action@v2
-      with:
-        push: true
-        tags: ${{ secrets.DOCKERUSERNAME }}/tools-image:v1.0
-        file: ./Dockerfile
+EXPOSE 80
