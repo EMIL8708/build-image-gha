@@ -8,8 +8,6 @@ RUN wget wget -O- https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0
 
 RUN unzip terraform_1.8.0_linux_arm64.zip
 
-RUN ls -al
-
-RUN ls -al terraform
+RUN mv terraform /Users/emilmoldoisaev/.tfenv/bin/terraform
 
 EXPOSE 80
